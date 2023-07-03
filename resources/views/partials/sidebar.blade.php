@@ -9,6 +9,12 @@
             </a>
         </li>
         <li>
+            <a href="{{ route('customers.index') }}" class="waves-effect">
+                <i class="bx bx-list-ol"></i>
+                <span>კლიენტები</span>
+            </a>
+        </li>
+        <li>
             <a href="{{ route('users.index') }}" class="waves-effect">
                 <i class="bx bx-user-circle"></i>
                 <span>მომხმარებლები</span>

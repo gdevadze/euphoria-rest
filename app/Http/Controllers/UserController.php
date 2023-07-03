@@ -35,30 +35,6 @@ class UserController extends Controller
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
-    public function changePassword()
-    {
-        return view('pages.change-password');
-    }
-
-    public function updatePassword(Request $request)
-    {
-        $request->validate([
-            'current_password' => 'required',
-            'password' => 'required|string|min:8|confirmed',
-            'password_confirmation' => 'required',
-        ]);
-
-        $user = currentUser();
-
-        if (!Hash::check($request->current_password, $user->password)) {
-            return back()->with('error', 'მიმდინარე პაროლი არასწორია!');
-        }
-
-        $user->update(['password' => Hash::make($request->password)]);
-
-        return redirect()->back()->with('success', 'პაროლი წარმატებით შეიცვალა!');
-    }
-
     public function getUsersForAjax()
     {
         return Datatables()->of(User::query())

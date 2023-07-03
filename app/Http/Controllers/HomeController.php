@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CardLog;
+use App\Models\Company;
+use App\Models\Customer;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +27,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('dashboard');
+        $customersCount = Customer::count();
+        $companiesCount = Company::count();
+        $cardLogsToday = CardLog::whereDate('created_at',Carbon::today())->get();
+        return view('dashboard',compact('customersCount','companiesCount','cardLogsToday'));
     }
 }

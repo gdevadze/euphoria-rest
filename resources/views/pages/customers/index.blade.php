@@ -8,6 +8,8 @@
     <!-- Responsive datatable examples -->
     <link href="{{ asset('assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css') }}"
           rel="stylesheet" type="text/css"/>
+
+
 @endpush
 @section('content')
 
@@ -18,7 +20,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0 font-size-18">კომპანიები</h4>
+                        <h4 class="mb-sm-0 font-size-18">კლიენტები</h4>
                     </div>
                 </div>
             </div>
@@ -34,17 +36,17 @@
                                             aria-label="Close"></button>
                                 </div>
                             @endif
-                            <button type="submit" id="add_company" class="btn btn-outline-primary waves-effect waves-light mb-2">
+                            <button type="submit" id="add_customer" class="btn btn-outline-primary waves-effect waves-light mb-2">
                                 დამატება
                             </button>
 
-                            <table id="companies" class="table table-bordered dt-responsive  nowrap w-100">
+                            <table id="customers" class="table table-bordered dt-responsive  nowrap w-100">
                                 <thead>
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">სახელი</th>
-                                    <th scope="col">საიდენტიფიკაციო კოდი</th>
-                                    <th scope="col">ელ.ფოსტა</th>
+                                    <th scope="col">გვარი</th>
+                                    <th scope="col">გატარების რაოდენობა</th>
                                     <th scope="col">მოქმედება</th>
                                 </tr>
                                 </thead>
@@ -97,15 +99,16 @@
     <script src="{{ asset('assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}"></script>
 
+
     <!-- Datatable init js -->
     <script src="{{ asset('assets/js/pages/datatables.init.js') }}"></script>
+
 
     <script>
         let table;
         let save_method;
         $(document).ready(function () {
-
-            table = $('#companies').DataTable({
+            table = $('#customers').DataTable({
                 processing: true,
                 order: [[0, 'desc']],
                 serverSide: true,
@@ -113,7 +116,7 @@
                     url: "{{ __('table-language') }}"
                 },
                 ajax: {
-                    url: "{{ route('companies.ajax') }}",
+                    url: "{{ route('customers.ajax') }}",
                     type: 'POST',
                     data: function (d) {
                         d._token = '{{ csrf_token() }}'
@@ -122,8 +125,8 @@
                 columns: [
                     {data: 'id', name: 'id'},
                     {data: 'name', name: 'name'},
-                    {data: 'identification_code', name: 'identification_code'},
-                    {data: 'email', name: 'email'},
+                    {data: 'surname', name: 'surname'},
+                    {data: 'quantity', name: 'quantity'},
                     {data: 'action', name: 'action'}
                 ]
             });
@@ -133,12 +136,12 @@
             table.ajax.reload();
         }
 
-        $(document.body).on('click', '#add_company', function () {
-            $('#modal_label').html('კომპანიის დამატება')
+        $(document.body).on('click', '#add_customer', function () {
+            $('#modal_label').html('კლიენტის დამატება')
             $('#modal_form').modal('show');
             $(".htmlDisplay").html('<h3 align=center class=text-warning><i class="fa fa-spinner fa-spin" style="font-size:24px"></i> დაელოდეთ...</h3>');
             $.ajax({
-                url: "{{ route('companies.create.render') }}",
+                url: "{{ route('customers.create.render') }}",
                 method: "POST",
                 data: {
                     _token: '{{ csrf_token() }}',
@@ -152,18 +155,18 @@
             })
         })
 
-        $(document.body).on('click', '#edit_company', function () {
-            let companyId = $(this).data('id');
-            $('#modal_label').html('კომპანიის რედაქტირება')
+        $(document.body).on('click', '#edit_quantity', function () {
+            let customerId = $(this).data('id');
+            $('#modal_label').html('კლიენტის გატარების რაოდენობის განახლება')
             $('#modal_form').modal('show');
             $(".htmlDisplay").html('<h3 align=center class=text-warning><i class="fa fa-spinner fa-spin" style="font-size:24px"></i> დაელოდეთ...</h3>');
 
             $.ajax({
-                url: "{{ route('companies.edit') }}",
+                url: "{{ route('customers.edit') }}",
                 method: "POST",
                 data: {
                     _token: '{{ csrf_token() }}',
-                    'id': companyId,
+                    'id': customerId,
                 },
                 success: function (msg) {
                     if (msg.status == 0) {
@@ -182,7 +185,7 @@
         })
 
         $(document.body).on('click', '.save-btn', function () {
-            let form = $('#company_info').serialize();
+            let form = $('#customer_info').serialize();
             let $this = $(this)
             console.log($this.data('link'))
             $this.html('<i class="fa fa-spin fa-spinner"></i> დაელოდეთ...');

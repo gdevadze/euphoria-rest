@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +30,18 @@ Auth::routes(['register' => false]);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+    Route::get('/change-password',[ProfileController::class,'changePassword'])->name('change.password');
+    Route::post('/update-password',[ProfileController::class,'updatePassword'])->name('update.password');
+
+    Route::group(['prefix' => 'customers','as' => 'customers.'], function (){
+        Route::get('/',[CustomerController::class,'index'])->name('index');
+        Route::post('/create_render',[CustomerController::class,'createRender'])->name('create.render');
+        Route::post('/companies_ajax', [CustomerController::class, 'getCompaniesForAjax'])->name('ajax');
+        Route::post('/store',[CustomerController::class,'store'])->name('store');
+        Route::post('/delete',[CustomerController::class,'delete'])->name('delete');
+        Route::post('/edit',[CustomerController::class,'edit'])->name('edit');
+        Route::post('/update_quantity',[CustomerController::class,'updateQuantity'])->name('update.quantity');
+    });
 
     Route::group(['prefix' => 'companies','as' => 'companies.'], function (){
         Route::get('/',[CompanyController::class,'index'])->name('index');
