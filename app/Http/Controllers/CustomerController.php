@@ -7,6 +7,7 @@ use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCompanyRequest;
 use App\Models\Company;
 use App\Models\Customer;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -24,7 +25,7 @@ class CustomerController extends Controller
             ->addIndexColumn()
             ->addColumn('action', function ($data) {
                 $html = '';
-                $html .= $btn = ' <a class="btn btn-success shadow btn-xs sharp mr-1" href="javascript:void(0)" id="edit_quantity" data-id="'.$data->id.'"><i class="fa fa-check"></i></a>';
+                $html .= $btn = ' <a class="btn btn-primary shadow btn-xs sharp mr-1" href="javascript:void(0)" id="edit_quantity" data-id="'.$data->id.'"><i class="fa fa-id-card"></i></a>';
                 if (currentUser()->can('user-delete')) {
                     $html = $btn . ' <a class="btn btn-danger shadow btn-xs sharp mr-1" href="javascript:void(0)" onclick="deleteCompany(' . $data->id . ')"><i class="fa fa-trash"></i></a>';
                 }
@@ -46,6 +47,7 @@ class CustomerController extends Controller
         $input = $request->all();
         $input['user_id'] = currentUser()->id;
         $input['tel'] = str_replace(' ','',$input['tel']);
+        $input['end_date'] = Carbon::today()->addDays(30);
         Customer::create($input);
         return jsonResponse(['status' => 0,'msg' => 'კლიენტი წარმატებით დაემატა']);
     }
@@ -59,13 +61,14 @@ class CustomerController extends Controller
     public function updateQuantity(Request $request)
     {
         $input = $request->all();
+        $input['end_date'] = Carbon::today()->addDays(30);
         Customer::findOrFail($request->id)->update($input);
         return jsonResponse(['status' => 0,'msg' => 'გატარების რაოდენობა წარმატებით განახლდა!']);
     }
 
     public function delete(Request $request): JsonResponse
     {
-        Company::findOrFail($request->id)->delete();
+        Customer::findOrFail($request->id)->delete();
         return jsonResponse(['status' => 1]);
     }
 }

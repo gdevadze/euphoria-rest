@@ -33,19 +33,19 @@
                 <div class="navbar-brand-box">
                     <a href="{{ route('dashboard') }}" class="logo logo-dark">
                                 <span class="logo-sm">
-                                    <img src="assets/images/logo.svg" alt="" height="22">
+                                    <img src="{{ asset('assets/images/asya-white.svg') }}" alt="" height="50">
                                 </span>
                         <span class="logo-lg">
-                                    <img src="assets/images/logo-dark.png" alt="" height="17">
+                                    <img src="{{ asset('assets/images/asya-white.svg') }}" alt="" height="50">
                                 </span>
                     </a>
 
                     <a href="{{ route('dashboard') }}" class="logo logo-light">
                                 <span class="logo-sm">
-                                    <img src="assets/images/logo-light.svg" alt="" height="22">
+                                    <img src="{{ asset('assets/images/asya-white.svg') }}" alt="" height="50">
                                 </span>
                         <span class="logo-lg">
-                                    <img src="assets/images/logo-light.png" alt="" height="19">
+                                    <img src="{{ asset('assets/images/asya-white.svg') }}" alt="" height="50">
                                 </span>
                     </a>
                 </div>
@@ -86,16 +86,16 @@
                 <div class="dropdown d-inline-block">
                     <button type="button" class="btn header-item waves-effect"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img id="header-lang-img" src="assets/images/flags/{{ currentLocale() }}.jpg" alt="{{ currentLocale() }}" height="16">
+                        <img id="header-lang-img" src="{{ asset('assets/images/flags/'.currentLocale().'.jpg') }}" alt="{{ currentLocale() }}" height="16">
                     </button>
                     <div class="dropdown-menu dropdown-menu-end">
 
                         <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="en">
-                            <img src="assets/images/flags/ka.jpg" alt="user-image" class="me-1" height="12"> <span
+                            <img src="{{ asset('assets/images/flags/ka.jpg') }}" alt="user-image" class="me-1" height="12"> <span
                                 class="align-middle">ქართული</span>
                         </a>
                         <a href="javascript:void(0);" class="dropdown-item notify-item language" data-lang="en">
-                            <img src="assets/images/flags/en.jpg" alt="user-image" class="me-1" height="12"> <span
+                            <img src="{{ asset('assets/images/flags/en.jpg') }}" alt="user-image" class="me-1" height="12"> <span
                                 class="align-middle">English</span>
                         </a>
 {{--                        <!-- item-->--}}
@@ -136,7 +136,7 @@
                 <div class="dropdown d-inline-block">
                     <button type="button" class="btn header-item waves-effect" id="page-header-user-dropdown"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img class="rounded-circle header-profile-user" src="assets/images/users/avatar-2.jpg"
+                        <img class="rounded-circle header-profile-user" src="{{ asset('assets/images/users/avatar-6.jpg') }}"
                              alt="Header Avatar">
                         <span class="d-none d-xl-inline-block ms-1" key="t-henry">{{ currentUser()->full_name }}</span>
                         <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
@@ -151,7 +151,7 @@
 {{--                                class="bx bx-wrench font-size-16 align-middle me-1"></i> <span--}}
 {{--                                key="t-settings">Settings</span></a>--}}
                         <a class="dropdown-item" href="{{ route('change.password') }}"><i class="bx bxs-key font-size-16 align-middle me-1"></i>
-                            <span key="t-lock-screen">პაროლის შეცვლა</span></a>
+                            <span key="t-lock-screen">@lang('password-change')</span></a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item text-danger" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();"><i

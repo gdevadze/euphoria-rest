@@ -3,6 +3,7 @@
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     if (Auth::check()){
-        return view('dashboard');
+        return redirect()->to(route('dashboard'));
     }
     return view('auth.login');
 });
@@ -41,6 +42,13 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/delete',[CustomerController::class,'delete'])->name('delete');
         Route::post('/edit',[CustomerController::class,'edit'])->name('edit');
         Route::post('/update_quantity',[CustomerController::class,'updateQuantity'])->name('update.quantity');
+        Route::post('/delete',[CustomerController::class,'delete'])->name('delete');
+    });
+
+    Route::group(['prefix' => 'languages', 'as' => 'languages.'], function () {
+        Route::get('/', [LanguageController::class, 'index'])->name('index');
+        Route::get('/{code}/show', [LanguageController::class, 'show'])->name('show');
+        Route::post('/update_json', [LanguageController::class, 'saveLanguageJson'])->name('update.json');
     });
 
     Route::group(['prefix' => 'companies','as' => 'companies.'], function (){

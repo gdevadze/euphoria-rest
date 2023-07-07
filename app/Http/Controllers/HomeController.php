@@ -29,7 +29,7 @@ class HomeController extends Controller
     {
         $customersCount = Customer::count();
         $companiesCount = Company::count();
-        $cardLogsToday = CardLog::whereDate('created_at',Carbon::today())->get();
+        $cardLogsToday = CardLog::whereDate('created_at',Carbon::today())->orderBy('enter_date','desc')->get();
         return view('dashboard',compact('customersCount','companiesCount','cardLogsToday'));
     }
 }

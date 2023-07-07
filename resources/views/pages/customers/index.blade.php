@@ -46,6 +46,7 @@
                                     <th scope="col">#</th>
                                     <th scope="col">სახელი</th>
                                     <th scope="col">გვარი</th>
+                                    <th scope="col">კომპანია</th>
                                     <th scope="col">გატარების რაოდენობა</th>
                                     <th scope="col">მოქმედება</th>
                                 </tr>
@@ -126,6 +127,7 @@
                     {data: 'id', name: 'id'},
                     {data: 'name', name: 'name'},
                     {data: 'surname', name: 'surname'},
+                    {data: 'company_name', name: 'company_name'},
                     {data: 'quantity', name: 'quantity'},
                     {data: 'action', name: 'action'}
                 ]
@@ -218,7 +220,7 @@
 
         function deleteCompany(id) {
             Swal.fire({
-                title: 'ნამდვილად გსურთ კომპანიის წაშლა?',
+                title: 'ნამდვილად გსურთ კლიენტის წაშლა?',
                 text: "",
                 icon: 'question',
                 showCancelButton: true,
@@ -230,7 +232,7 @@
                     return new Promise(function (resolve) {
                         $('.swal2-confirm').html('<i class="fa fa-spinner fa-spin mr-1"></i>');
                         $.ajax({
-                            url: "{{ route('companies.delete') }}",
+                            url: "{{ route('customers.delete') }}",
                             type: "POST",
                             dataType: "JSON",
                             data: {
@@ -240,7 +242,7 @@
                         })
                             .done(function (response) {
                                 if (response.status === 1) {
-                                    Swal.fire('წარმატებული!','კომპანია წარმატებით წაიშალა','success');
+                                    Swal.fire('წარმატებული!','კლიენტი წარმატებით წაიშალა','success');
                                     reload()
                                 } else {
                                     Swal.fire('შეცდომა!', 'სცადეთ მოგვიანებით', 'error');
