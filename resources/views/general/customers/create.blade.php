@@ -44,7 +44,7 @@
         <div class="col-xxl-4 col-md-4">
             <div>
                 <label for="quantity" class="form-label">გატარების რაოდენობა</label>
-                <input type="text" class="form-control" name="quantity" value="" id="quantity">
+                <input type="text" class="form-control" name="quantity" value="27" id="quantity">
                 <span class="text-danger errors quantity_err"></span>
             </div>
         </div>
