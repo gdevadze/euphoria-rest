@@ -50,7 +50,7 @@
         </div>
     </div>
     <div class="mt-3">
-        <a type="button" class="btn btn-primary waves-effect waves-light save-btn" data-link="{{ route('customers.store') }}" href="javascript:void(0)">შენახვა</a>
+        <button type="submit" class="btn btn-primary waves-effect waves-light save-btn" data-link="{{ route('customers.store') }}" href="javascript:void(0)">შენახვა</button>
     </div>
 </form>
 <script>

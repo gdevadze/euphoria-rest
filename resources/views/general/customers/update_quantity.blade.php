@@ -17,7 +17,7 @@
         </div>
     </div>
     <div class="mt-3">
-        <a type="button" class="btn btn-primary waves-effect waves-light save-btn" data-link="{{ route('customers.update.quantity') }}" href="javascript:void(0)">შენახვა</a>
+        <a type="submit" class="btn btn-primary waves-effect waves-light save-btn" data-link="{{ route('customers.update.quantity') }}" href="javascript:void(0)">შენახვა</a>
     </div>
 </form>
 <script>

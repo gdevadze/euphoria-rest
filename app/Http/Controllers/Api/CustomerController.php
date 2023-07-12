@@ -19,7 +19,6 @@ class CustomerController extends Controller
     {
         $inp = $request->all();
         foreach($inp as $data){
-//            return $data['card_number'];
             $date = $data['enter_date'];
             $data['enter_date'] = Carbon::parse($date)->tz('Asia/Tbilisi');
             $customer = Customer::where('card_number',$data['card_number'])->latest()->first();
@@ -27,7 +26,9 @@ class CustomerController extends Controller
                 'customer_id' => $customer->id,
                 'card_number' => $data['card_number'],
                 'enter_date' => $data['enter_date']
-            ]); 
+            ]);
+            $oldQuantity = $customer->quantity;
+            $customer->update(['quantity' => $oldQuantity - 1]);
         }
     }
 }
